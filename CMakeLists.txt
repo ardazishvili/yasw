@@ -28,7 +28,7 @@ add_executable(yasw_unit_tests
         #tests
         tests/unit/test_main.cpp
         tests/unit/SQLiteColumn_tests.cpp
-        tests/unit/Constraint_tests.cpp
+        tests/unit/SQLiteConstraint_tests.cpp
 
         # sources
         src/SQLiteColumn.h
