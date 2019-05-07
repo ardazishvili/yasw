@@ -1,6 +1,6 @@
 #include <gmock/gmock.h>
 
-#include "../../../Constraint.h"
+#include "../../../src/Constraint.h"
 
 class ConstraintMock : public Constraint {
 public:

@@ -1,6 +1,6 @@
 #include <gmock/gmock.h>
 
-#include "../../SQLiteConstraint.h"
+#include "../../src/SQLiteConstraint.h"
 
 using ::testing::Eq;
 

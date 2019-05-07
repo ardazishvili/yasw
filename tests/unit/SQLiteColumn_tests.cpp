@@ -1,6 +1,6 @@
 #include <gmock/gmock.h>
 
-#include "../../Column.h"
+#include "../../src/Column.h"
 
 #include "mocks/ConstraintMock.h"
 

@@ -6,15 +6,15 @@ set(CMAKE_CXX_STANDARD 17)
 add_subdirectory("${CMAKE_SOURCE_DIR}/tests")
 
 add_library(yasw
-        Database.cpp
-        Database.h
-        Column.cpp
-        Column.h
-        Table.cpp
-        Table.h
-        Constraint.h
-        SQLiteConstraint.cpp
-        SQLiteConstraint.h )
+        src/Database.cpp
+        src/Database.h
+        src/Column.cpp
+        src/Column.h
+        src/Table.cpp
+        src/Table.h
+        src/Constraint.h
+        src/SQLiteConstraint.cpp
+        src/SQLiteConstraint.h)
 
 add_executable(yasw_unit_tests
 
@@ -27,9 +27,9 @@ add_executable(yasw_unit_tests
         tests/unit/Constraint_tests.cpp
 
         # sources
-        Column.h
-        Column.cpp
-        SQLiteConstraint.cpp
-        SQLiteConstraint.h
+        src/Column.h
+        src/Column.cpp
+        src/SQLiteConstraint.cpp
+        src/SQLiteConstraint.h
         )
 target_link_libraries(yasw_unit_tests gmock gtest)
