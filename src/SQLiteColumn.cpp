@@ -1,6 +1,6 @@
 #include <map>
 
-#include "Column.h"
+#include "SQLiteColumn.h"
 
 std::map<Datatype, std::string> datatypeMapper = {
         { Datatype::INTEGER, "INTEGER" },

@@ -1,6 +1,6 @@
 #include <gmock/gmock.h>
 
-#include "../../src/Column.h"
+#include "../../src/SQLiteColumn.h"
 
 #include "mocks/ConstraintMock.h"
 

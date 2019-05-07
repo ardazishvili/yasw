@@ -6,15 +6,19 @@ set(CMAKE_CXX_STANDARD 17)
 add_subdirectory("${CMAKE_SOURCE_DIR}/tests")
 
 add_library(yasw
-        src/Database.cpp
-        src/Database.h
-        src/Column.cpp
         src/Column.h
-        src/Table.cpp
         src/Table.h
+        src/Database.h
         src/Constraint.h
+        src/SQLiteDatabase.cpp
+        src/SQLiteDatabase.h
+        src/SQLiteColumn.cpp
+        src/SQLiteColumn.h
+        src/SQLiteTable.cpp
+        src/SQLiteTable.h
         src/SQLiteConstraint.cpp
-        src/SQLiteConstraint.h)
+        src/SQLiteConstraint.h
+        )
 
 add_executable(yasw_unit_tests
 
@@ -27,8 +31,8 @@ add_executable(yasw_unit_tests
         tests/unit/Constraint_tests.cpp
 
         # sources
-        src/Column.h
-        src/Column.cpp
+        src/SQLiteColumn.h
+        src/SQLiteColumn.cpp
         src/SQLiteConstraint.cpp
         src/SQLiteConstraint.h
         )

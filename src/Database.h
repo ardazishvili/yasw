@@ -1,12 +1,9 @@
 #ifndef YASW_DATABASE_H
 #define YASW_DATABASE_H
 
-#include <string>
-
 class Database {
 public:
-    virtual void createTable()
+    virtual ~Database() = default;
 };
-
 
 #endif //YASW_DATABASE_H
