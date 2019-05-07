@@ -13,7 +13,7 @@ TEST(Colums, returnsCorrectStringWithoutConstraints)
     EXPECT_CALL(*constraintMock, toString()).WillOnce(Return(""));
     auto c = SQLiteColumn("NAME", Datatype::TEXT, std::move(constraintMock));
 
-    EXPECT_THAT(c.toString(), Eq("NAME TEXT,"));
+    EXPECT_THAT(c.toString(), Eq("NAME TEXT"));
 }
 
 TEST(Colums, returnsCorrectStringWithConstraints)
@@ -22,5 +22,5 @@ TEST(Colums, returnsCorrectStringWithConstraints)
     EXPECT_CALL(*constraintMock, toString()).WillOnce(Return(" PRIMARY KEY "));
     auto c = SQLiteColumn("NAME", Datatype::TEXT, std::move(constraintMock));
 
-    EXPECT_THAT(c.toString(), Eq("NAME TEXT PRIMARY KEY ,"));
+    EXPECT_THAT(c.toString(), Eq("NAME TEXT PRIMARY KEY "));
 }

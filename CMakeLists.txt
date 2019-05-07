@@ -18,22 +18,26 @@ add_library(yasw
         src/SQLiteTable.h
         src/SQLiteConstraint.cpp
         src/SQLiteConstraint.h
-        )
+        tests/unit/mocks/ColumnMock.h)
 
 add_executable(yasw_unit_tests
 
         # mocks
         tests/unit/mocks/ConstraintMock.h
+        tests/unit/mocks/ColumnMock.h
 
         #tests
         tests/unit/test_main.cpp
         tests/unit/SQLiteColumn_tests.cpp
         tests/unit/SQLiteConstraint_tests.cpp
+        tests/unit/SQLiteTable_tests.cpp
 
         # sources
         src/SQLiteColumn.h
         src/SQLiteColumn.cpp
         src/SQLiteConstraint.cpp
         src/SQLiteConstraint.h
+        src/SQLiteTable.h
+        src/SQLiteTable.cpp
         )
 target_link_libraries(yasw_unit_tests gmock gtest)

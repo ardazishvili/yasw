@@ -5,7 +5,7 @@
 
 #include "Constraint.h"
 
-class SQLiteConstraint : Constraint {
+class SQLiteConstraint : public Constraint {
 public:
     SQLiteConstraint() = default;
     SQLiteConstraint(bool primaryKey, bool notNull);

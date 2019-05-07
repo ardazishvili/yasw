@@ -16,5 +16,5 @@ SQLiteColumn::SQLiteColumn(const std::string &name, Datatype type, std::unique_p
 }
 
 std::string SQLiteColumn::toString() const {
-    return m_name + " " + datatypeMapper[m_type] + m_constraint->toString() + ",";
+    return m_name + " " + datatypeMapper[m_type] + m_constraint->toString();
 }

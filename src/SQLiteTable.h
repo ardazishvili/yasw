@@ -7,15 +7,15 @@
 #include "Table.h"
 #include "SQLiteColumn.h"
 
-
-
-using SQLiteColumns = std::vector<std::unique_ptr<SQLiteColumn>>;
+using Columns = std::vector<std::unique_ptr<Column>>;
 class SQLiteTable : public Table {
 public:
-    SQLiteTable(SQLiteColumns columns);
+    SQLiteTable(const std::string& name, Columns&& columns);
+    std::string toString() const override;
 
 private:
-    SQLiteColumns m_columns;
+    std::string m_name;
+    Columns m_columns;
 };
 
 

@@ -3,6 +3,8 @@
 
 class Table {
 public:
+    virtual std::string toString() const = 0;
+
     virtual ~Table() = default;
 };
 
