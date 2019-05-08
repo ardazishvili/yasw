@@ -24,7 +24,7 @@ SQLiteDatabase::SQLiteDatabase(const std::string& filename,
 
 void SQLiteDatabase::createTable(std::unique_ptr<Table>&& table)
 {
-
+    m_iface->exec(*m_sqliteDb, table->toString().c_str(), nullptr, 0, nullptr);
 }
 
 bool SQLiteDatabase::fileExist(const std::string& name) const {

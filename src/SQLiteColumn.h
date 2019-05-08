@@ -25,5 +25,9 @@ private:
     std::unique_ptr<Constraint> m_constraint;
 };
 
+std::unique_ptr<SQLiteColumn> createColumn(const std::string& name,
+                                           Datatype type,
+                                           std::unique_ptr<Constraint>&& constraint);
+
 
 #endif //YASW_SQLITECOLUMN_H

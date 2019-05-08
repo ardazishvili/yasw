@@ -18,5 +18,13 @@ private:
     Columns m_columns;
 };
 
+template <typename ... Cols>
+std::unique_ptr<SQLiteTable> createTable(const std::string& name, Cols... cols)
+{
+    Columns columns;
+    (columns.push_back(std::move(cols)), ...);
+    return std::make_unique<SQLiteTable>(name, std::move(columns));
+}
+
 
 #endif //YASW_SQLITETABLE_H
