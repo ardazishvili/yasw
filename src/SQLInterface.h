@@ -6,7 +6,7 @@
 // TODO Interface currently is binded to SQLite3
 class SQLInterface {
 public:
-    virtual int open(const char *filename, sqlite3 **ppDb) = 0;
+    virtual int open(const char *filename, sqlite3 **ppDb, int flags, const char *zVfs) = 0;
     virtual int exec(
             sqlite3* db,                                /* An open database */
             const char *sql,                           /* SQL to be evaluated */

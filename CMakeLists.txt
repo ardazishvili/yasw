@@ -23,7 +23,7 @@ add_library(yasw
         src/SQLiteConstraint.cpp
         src/SQLiteConstraint.h
         src/SQLiteInterface.cpp
-        src/SQLiteInterface.h tests/unit/mocks/SQLInterfaceMock.h tests/unit/mocks/TableMock.h)
+        src/SQLiteInterface.h)
 
 add_executable(yasw_unit_tests
 
@@ -52,3 +52,21 @@ add_executable(yasw_unit_tests
         src/SQLiteInterface.h
         src/SQLiteInterface.cpp)
 target_link_libraries(yasw_unit_tests gmock gtest sqlite3)
+
+add_executable(yasw_integration_tests
+        #tests
+        tests/integration/test_main.cpp
+        tests/integration/SQLiteDatabase_tests.cpp
+
+        # sources
+        src/SQLiteColumn.h
+        src/SQLiteColumn.cpp
+        src/SQLiteConstraint.cpp
+        src/SQLiteConstraint.h
+        src/SQLiteTable.h
+        src/SQLiteTable.cpp
+        src/SQLiteDatabase.h
+        src/SQLiteDatabase.cpp
+        src/SQLiteInterface.h
+        src/SQLiteInterface.cpp)
+target_link_libraries(yasw_integration_tests gmock gtest sqlite3)

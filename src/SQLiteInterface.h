@@ -5,7 +5,10 @@
 
 class SQLiteInterface : public SQLInterface {
 public:
-    int open(const char *filename, sqlite3 **ppDb) override;
+    int open(const char *filename,
+             sqlite3 **ppDb,
+             int flags,
+             const char *zVfs) override;
     int exec(sqlite3*db ,
              const char *sql,
              int (*callback)(void*,int,char**,char**),

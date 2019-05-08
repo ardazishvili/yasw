@@ -1,7 +1,7 @@
 #include "SQLiteInterface.h"
 
-int SQLiteInterface::open(const char *filename, sqlite3 **ppDb) {
-    return sqlite3_open(filename, ppDb);
+int SQLiteInterface::open(const char *filename, sqlite3 **ppDb, int flags, const char *zVfs) {
+    return sqlite3_open_v2(filename, ppDb, flags, zVfs);
 }
 
 int SQLiteInterface::exec(sqlite3* db,

@@ -7,7 +7,7 @@
 
 class SQLInterfaceMock : public SQLInterface {
 public:
-    MOCK_METHOD2(open, int(const char*, sqlite3**));
+    MOCK_METHOD4(open, int(const char*, sqlite3**, int flags, const char *zVfs));
     MOCK_METHOD5(exec, int ( sqlite3*,
                              const char*,
                              int (*)(void*,int,char**,char**),
