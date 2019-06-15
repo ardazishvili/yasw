@@ -3,27 +3,47 @@
 
 #include <vector>
 #include <memory>
+#include <tuple>
 
 #include "Table.h"
 #include "SQLiteColumn.h"
+#include "misc.h"
 
-using Columns = std::vector<std::unique_ptr<Column>>;
+template <typename... Columns>
 class SQLiteTable : public Table {
 public:
-    SQLiteTable(const std::string& name, Columns&& columns);
-    std::string toString() const override;
+    using columns_types = std::tuple<typename extract_args<Columns>::type...>;
+    using table_types = std::tuple<Columns...>;
+
+    SQLiteTable(const std::string& name, Columns... columns)
+        : m_name(name), m_columns(std::make_tuple(std::move(columns)...)) { }
+
+    std::string toString() const override
+    {
+        std::string result = "CREATE TABLE " + m_name + "(";
+        for (int i = 0; i < size(); ++i) {
+            for_index(i, m_columns, [&result](const auto& obj) {
+                result += obj->toString() + ",";
+            });
+        }
+        // TODO ugly removal of trailing comma
+        result.pop_back();
+        return result + ");";
+    }
+
+    int size() const {
+        return std::tuple_size<decltype(m_columns)>();
+    }
 
 private:
     std::string m_name;
-    Columns m_columns;
+    table_types m_columns;
 };
 
 template <typename ... Cols>
-std::unique_ptr<SQLiteTable> createTable(const std::string& name, Cols... cols)
+std::unique_ptr<SQLiteTable<Cols...>> createTable(const std::string& name, Cols... cols)
 {
-    Columns columns;
-    (columns.push_back(std::move(cols)), ...);
-    return std::make_unique<SQLiteTable>(name, std::move(columns));
+    return std::make_unique<SQLiteTable<Cols...>>(name, std::move(cols)...);
 }
 
 

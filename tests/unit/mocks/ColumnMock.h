@@ -7,6 +7,7 @@
 
 class ColumnMock : public Column {
 public:
+    typedef int element_type; // stub for tests only
     MOCK_CONST_METHOD0(toString, std::string());
 };
 

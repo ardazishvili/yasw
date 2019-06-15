@@ -41,8 +41,8 @@ TEST(Database, throwsExceptionIfAlreadyExistWhenTryToCreate)
 
 TEST(Database, createsTableInEmptyDatabase)
 {
-    auto id = createColumn("id", Datatype::INTEGER, createConstraint(true, true));
-    auto name = createColumn("name",Datatype::TEXT, createNoConstraints());
+    auto id = createColumn<int>("id", createConstraint(true, true));
+    auto name = createColumn<std::string>("name", createNoConstraints());
     auto table = createTable("TEST", std::move(id), std::move(name));
     auto db = openDatabase("/home/roman/repos/yasw/cmake-build-debug/empty.sqlite3");
     db.createTable(std::move(table));
