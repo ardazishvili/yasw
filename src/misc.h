@@ -2,6 +2,7 @@
 #define YASW_MISC_H
 
 #include <iostream>
+#include <tuple>
 
 template <class T>
 constexpr std::string_view type_name()

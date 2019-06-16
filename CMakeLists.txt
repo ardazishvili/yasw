@@ -10,7 +10,7 @@ add_library(yasw
         src/Column.h
         src/Table.h
         src/Database.h
-        src/Constraint.h
+        src/Constraints.h
         src/SQLInterface.h
 
         # SQLite3 bindings
@@ -20,8 +20,8 @@ add_library(yasw
         src/SQLiteColumn.h
         src/SQLiteTable.cpp
         src/SQLiteTable.h
-        src/SQLiteConstraint.cpp
-        src/SQLiteConstraint.h
+        src/SQLiteConstraints.cpp
+        src/SQLiteConstraints.h
         src/SQLiteInterface.cpp
         src/SQLiteInterface.h
         src/misc.h)
@@ -44,8 +44,8 @@ add_executable(yasw_unit_tests
         # sources
         src/SQLiteColumn.h
         src/SQLiteColumn.cpp
-        src/SQLiteConstraint.cpp
-        src/SQLiteConstraint.h
+        src/SQLiteConstraints.cpp
+        src/SQLiteConstraints.h
         src/SQLiteTable.h
         src/SQLiteTable.cpp
         src/SQLiteDatabase.h
@@ -63,8 +63,8 @@ add_executable(yasw_integration_tests
         # sources
         src/SQLiteColumn.h
         src/SQLiteColumn.cpp
-        src/SQLiteConstraint.cpp
-        src/SQLiteConstraint.h
+        src/SQLiteConstraints.cpp
+        src/SQLiteConstraints.h
         src/SQLiteTable.h
         src/SQLiteTable.cpp
         src/SQLiteDatabase.h

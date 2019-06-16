@@ -1,31 +1,28 @@
-#include <gmock/gmock.h>
+#include "../../src/SQLiteConstraints.h"
 
-#include "../../src/SQLiteConstraint.h"
+#include <gmock/gmock.h>
 
 using ::testing::Eq;
 
 
 TEST(Constraint, returnsCorrectStringWithoutPrimaryKeyThatMayBeNull)
 {
-    auto defaultConstructed = SQLiteConstraint();
+    auto defaultConstructed = SQLiteConstraints(Constraint::NO_CONSTRAINT);
     EXPECT_THAT(defaultConstructed.toString(), Eq(""));
-
-    auto constructedWithAgrs = SQLiteConstraint(false, false);
-    EXPECT_THAT(constructedWithAgrs.toString(), Eq(""));
 }
 
 TEST(Constraint, returnsCorrectStringWithoutPrimaryKeyThatMayNotBeNull)
 {
-    auto constraint = SQLiteConstraint(false, true);
+    auto constraint = SQLiteConstraints(Constraint::NOT_NULL);
     EXPECT_THAT(constraint.toString(), Eq(" NOT NULL "));
 }
 
 
 TEST(Constraint, returnsCorrectStringWithPrimaryKey)
 {
-    auto justPrimary = SQLiteConstraint(true, false);
+    auto justPrimary = SQLiteConstraints(Constraint::PRIMARY_KEY);
     EXPECT_THAT(justPrimary.toString(), Eq(" PRIMARY KEY "));
 
-    auto bothPrimaryAndNotNull = SQLiteConstraint(true, true);
+    auto bothPrimaryAndNotNull = SQLiteConstraints(Constraint::PRIMARY_KEY, Constraint::NOT_NULL);
     EXPECT_THAT(bothPrimaryAndNotNull.toString(), Eq(" PRIMARY KEY "));
 }

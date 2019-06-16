@@ -1,8 +1,8 @@
 #include <gmock/gmock.h>
 
-#include "../../../src/Constraint.h"
+#include "../../../src/Constraints.h"
 
-class ConstraintMock : public Constraint {
+class ConstraintMock : public Constraints {
 public:
     MOCK_CONST_METHOD0(toString, std::string());
 };

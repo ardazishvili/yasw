@@ -4,14 +4,14 @@
 #include <map>
 
 #include "Column.h"
-#include "SQLiteConstraint.h"
+#include "SQLiteConstraints.h"
 #include "misc.h"
 
 template <typename T>
 class SQLiteColumn : public Column {
 public:
     typedef T element_type;
-    SQLiteColumn(const std::string& name, std::unique_ptr<Constraint>&& constraint)
+    SQLiteColumn(const std::string& name, std::unique_ptr<Constraints>&& constraint)
     : m_name(name), m_constraint(std::move(constraint))
     {
     }
@@ -24,7 +24,7 @@ public:
 private:
     static std::map<std::string, std::string> cppToSqlType;
     std::string m_name;
-    std::unique_ptr<Constraint> m_constraint;
+    std::unique_ptr<Constraints> m_constraint;
 };
 
 template <typename T>
@@ -36,7 +36,7 @@ std::map<std::string, std::string> SQLiteColumn<T>::cppToSqlType = {
 
 template <typename T>
 std::unique_ptr<SQLiteColumn<T>> createColumn(const std::string& name,
-                                           std::unique_ptr<Constraint>&& constraint)
+                                           std::unique_ptr<Constraints>&& constraint)
 {
     return std::make_unique<SQLiteColumn<T>>(name, std::move(constraint));
 }
