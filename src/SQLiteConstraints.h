@@ -18,7 +18,7 @@ enum class Constraint
 template <typename... Cons>
 class SQLiteConstraints : public Constraints
 {
-  public:
+public:
     SQLiteConstraints(Cons... constraints)
         : m_constraints{std::make_tuple(constraints...)}
     {}
@@ -46,7 +46,7 @@ class SQLiteConstraints : public Constraints
         return std::tuple_size<decltype(m_constraints)>();
     }
 
-  private:
+private:
     using constraints = std::tuple<Cons...>;
     constraints m_constraints;
     static const std::map<Constraint, std::string> m_constraintToStringMap;

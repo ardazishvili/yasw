@@ -1,10 +1,11 @@
 #ifndef YASW_DATABASE_H
 #define YASW_DATABASE_H
 
-#include "Table.h"
 #include "Object.h"
+#include "Table.h"
 
-class Database {
+class Database
+{
 public:
     virtual void createTable(std::unique_ptr<Table>&& table) = 0;
     virtual void insert(std::string name, Object& obj) = 0;
@@ -12,4 +13,4 @@ public:
     virtual ~Database() = default;
 };
 
-#endif //YASW_DATABASE_H
+#endif    // YASW_DATABASE_H

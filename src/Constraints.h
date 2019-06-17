@@ -3,12 +3,12 @@
 
 #include <string>
 
-class Constraints {
+class Constraints
+{
 public:
     virtual std::string toString() const = 0;
 
     virtual ~Constraints() = default;
 };
-
 
 #endif    // YASW_CONSTRAINTS_H

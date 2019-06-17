@@ -32,7 +32,7 @@ std::string exec(const char* cmd)
 TEST(Database, throwsExceptionOnWrongFilenameWhenTryToOpen)
 {
     ASSERT_THROW(openDatabase("/home/roman/repos/yasw/cmake-build-debug/db.sqlite34"),
-                 std::runtime_error);
+                 std::
 }
 
 TEST(Database, throwsExceptionIfAlreadyExistWhenTryToCreate)

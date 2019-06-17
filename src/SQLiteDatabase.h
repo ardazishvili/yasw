@@ -1,13 +1,14 @@
 #ifndef YASW_SQLITEDATABASE_H
 #define YASW_SQLITEDATABASE_H
 
-#include <string>
-#include <memory>
-
-#include "SQLInterface.h"
 #include "Database.h"
+#include "SQLInterface.h"
 
-class SQLiteDatabase : public Database {
+#include <memory>
+#include <string>
+
+class SQLiteDatabase : public Database
+{
 public:
     SQLiteDatabase(const std::string& filename,
                    std::unique_ptr<SQLInterface>&& interface,
@@ -22,8 +23,7 @@ private:
     std::unique_ptr<sqlite3*> m_sqliteDb;
 };
 
-SQLiteDatabase openDatabase(const std::string &filename);
-SQLiteDatabase createDatabase(const std::string &filename);
+SQLiteDatabase openDatabase(const std::string& filename);
+SQLiteDatabase createDatabase(const std::string& filename);
 
-
-#endif //YASW_SQLITEDATABASE_H
+#endif    // YASW_SQLITEDATABASE_H

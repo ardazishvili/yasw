@@ -4,7 +4,6 @@
 
 using ::testing::Eq;
 
-
 TEST(Constraint, returnsCorrectStringWithoutPrimaryKeyThatMayBeNull)
 {
     auto defaultConstructed = SQLiteConstraints(Constraint::NO_CONSTRAINT);
@@ -16,7 +15,6 @@ TEST(Constraint, returnsCorrectStringWithoutPrimaryKeyThatMayNotBeNull)
     auto constraint = SQLiteConstraints(Constraint::NOT_NULL);
     EXPECT_THAT(constraint.toString(), Eq(" NOT NULL "));
 }
-
 
 TEST(Constraint, returnsCorrectStringWithPrimaryKey)
 {
