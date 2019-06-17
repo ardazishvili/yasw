@@ -13,6 +13,7 @@ public:
                    std::unique_ptr<SQLInterface>&& interface,
                    bool isNew = false);
     virtual void createTable(std::unique_ptr<Table>&& table) override;
+    virtual void insert(std::string name, Object& obj) override;
 
 private:
     bool fileExist(const std::string& filename) const;

@@ -54,3 +54,27 @@ TEST(Database, createsTableInEmptyDatabase)
         exec("sqlite3 /home/roman/repos/yasw/cmake-build-debug/empty.sqlite3 .schema | grep TEST"),
         StartsWith("CREATE TABLE TEST(id INTEGER PRIMARY KEY ,name TEXT);"));
 }
+
+TEST(Database, insertsRowIntoEmptyColumn)
+{
+    class TestObject : public Object
+    {
+    public:
+        std::string content() const override
+        {
+            return std::to_string(m_i) + ", '" + m_str + "'";
+        }
+
+    private:
+        int m_i{1};
+        std::string m_str{"first"};
+    };
+
+    auto db = openDatabase("/home/roman/repos/yasw/cmake-build-debug/oneEmptyTableDb.sqlite3");
+    auto testObject = TestObject();
+    db.insert("test", testObject);
+
+    ASSERT_THAT(exec("sqlite3 /home/roman/repos/yasw/cmake-build-debug/oneEmptyTableDb.sqlite3 "
+                     "'select * from test' | grep 1"),
+                StartsWith("1|first"));
+}

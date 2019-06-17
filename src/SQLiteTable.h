@@ -11,7 +11,7 @@
 template <typename... Columns>
 class SQLiteTable : public Table
 {
-  public:
+public:
     using columns_types = std::tuple<typename extract_args<Columns>::type...>;
     using table_types = std::tuple<Columns...>;
 
@@ -37,7 +37,7 @@ class SQLiteTable : public Table
         return std::tuple_size<decltype(m_columns)>();
     }
 
-  private:
+private:
     std::string m_name;
     table_types m_columns;
 };

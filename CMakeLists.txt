@@ -24,7 +24,8 @@ add_library(yasw
         src/SQLiteConstraints.h
         src/SQLiteInterface.cpp
         src/SQLiteInterface.h
-        src/misc.h)
+        src/misc.h
+        src/Object.h)
 
 add_executable(yasw_unit_tests
 

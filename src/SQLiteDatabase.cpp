@@ -1,15 +1,16 @@
 
 
-#include <fstream>
-
 #include "SQLiteDatabase.h"
+
 #include "SQLiteInterface.h"
+
+#include <fstream>
 
 SQLiteDatabase::SQLiteDatabase(const std::string& filename,
                                std::unique_ptr<SQLInterface>&& interface,
-                               bool isNew) :
-    m_iface(std::move(interface)),
-    m_sqliteDb(std::make_unique<sqlite3*>())
+                               bool isNew)
+    : m_iface(std::move(interface))
+    , m_sqliteDb(std::make_unique<sqlite3*>())
 {
     if (isNew && fileExist(filename)) {
         throw std::runtime_error("Database already exists");
@@ -19,7 +20,6 @@ SQLiteDatabase::SQLiteDatabase(const std::string& filename,
     if (rc) {
         throw std::runtime_error("Cant open db: " + filename);
     }
-
 }
 
 void SQLiteDatabase::createTable(std::unique_ptr<Table>&& table)
@@ -27,17 +27,27 @@ void SQLiteDatabase::createTable(std::unique_ptr<Table>&& table)
     m_iface->exec(*m_sqliteDb, table->toString().c_str(), nullptr, 0, nullptr);
 }
 
-bool SQLiteDatabase::fileExist(const std::string& name) const {
+bool SQLiteDatabase::fileExist(const std::string& name) const
+{
     std::ifstream file(name);
     return file.good();
-
 }
 
+void SQLiteDatabase::insert(std::string name, Object& obj)
+{
+    std::string cmd = "INSERT INTO " + name + " values(" + obj.content() + ")";
+    auto rc = m_iface->exec(*m_sqliteDb, cmd.c_str(), nullptr, 0, nullptr);
+    if (rc) {
+        throw std::runtime_error("Can't insert into table: " + name);
+    }
+}
 
-SQLiteDatabase openDatabase(const std::string &filename) {
+SQLiteDatabase openDatabase(const std::string& filename)
+{
     return SQLiteDatabase(filename, std::make_unique<SQLiteInterface>());
 }
 
-SQLiteDatabase createDatabase(const std::string &filename) {
+SQLiteDatabase createDatabase(const std::string& filename)
+{
     return SQLiteDatabase(filename, std::make_unique<SQLiteInterface>(), true);
 }
