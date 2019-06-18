@@ -31,13 +31,13 @@ std::string exec(const char* cmd)
 
 TEST(Database, throwsExceptionOnWrongFilenameWhenTryToOpen)
 {
-    ASSERT_THROW(openDatabase("/home/roman/repos/yasw/cmake-build-debug/db.sqlite34"),
-                 std::
+    ASSERT_THROW(openDatabase("/root/db.sqlite34"),
+                 std::runtime_error);
 }
 
 TEST(Database, throwsExceptionIfAlreadyExistWhenTryToCreate)
 {
-    ASSERT_THROW(createDatabase("/home/roman/repos/yasw/cmake-build-debug/db.sqlite3"),
+    ASSERT_THROW(createDatabase("/root/db.sqlite3"),
                  std::runtime_error);
 }
 
@@ -47,11 +47,11 @@ TEST(Database, createsTableInEmptyDatabase)
         createColumn<int>("id", createConstraint(Constraint::PRIMARY_KEY, Constraint::NOT_NULL));
     auto name = createColumn<std::string>("name", createNoConstraints());
     auto table = createTable("TEST", std::move(id), std::move(name));
-    auto db = openDatabase("/home/roman/repos/yasw/cmake-build-debug/empty.sqlite3");
+    auto db = openDatabase("/root/empty.sqlite3");
     db.createTable(std::move(table));
 
     ASSERT_THAT(
-        exec("sqlite3 /home/roman/repos/yasw/cmake-build-debug/empty.sqlite3 .schema | grep TEST"),
+        exec("sqlite3 /root/empty.sqlite3 .schema | grep TEST"),
         StartsWith("CREATE TABLE TEST(id INTEGER PRIMARY KEY ,name TEXT);"));
 }
 
@@ -70,11 +70,11 @@ TEST(Database, insertsRowIntoEmptyColumn)
         std::string m_str{"first"};
     };
 
-    auto db = openDatabase("/home/roman/repos/yasw/cmake-build-debug/oneEmptyTableDb.sqlite3");
+    auto db = openDatabase("/root/oneEmptyTableDb.sqlite3");
     auto testObject = TestObject();
     db.insert("test", testObject);
 
-    ASSERT_THAT(exec("sqlite3 /home/roman/repos/yasw/cmake-build-debug/oneEmptyTableDb.sqlite3 "
+    ASSERT_THAT(exec("sqlite3 /root/oneEmptyTableDb.sqlite3 "
                      "'select * from test' | grep 1"),
                 StartsWith("1|first"));
 }
