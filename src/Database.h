@@ -1,6 +1,8 @@
 #ifndef YASW_DATABASE_H
 #define YASW_DATABASE_H
 
+#include <memory>
+
 #include "Object.h"
 #include "Table.h"
 
