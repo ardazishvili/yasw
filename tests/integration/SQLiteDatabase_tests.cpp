@@ -31,14 +31,12 @@ std::string exec(const char* cmd)
 
 TEST(Database, throwsExceptionOnWrongFilenameWhenTryToOpen)
 {
-    ASSERT_THROW(openDatabase("/root/db.sqlite34"),
-                 std::runtime_error);
+    ASSERT_THROW(openDatabase("/root/db.sqlite34"), std::runtime_error);
 }
 
 TEST(Database, throwsExceptionIfAlreadyExistWhenTryToCreate)
 {
-    ASSERT_THROW(createDatabase("/root/db.sqlite3"),
-                 std::runtime_error);
+    ASSERT_THROW(createDatabase("/root/db.sqlite3"), std::runtime_error);
 }
 
 TEST(Database, createsTableInEmptyDatabase)
@@ -50,31 +48,63 @@ TEST(Database, createsTableInEmptyDatabase)
     auto db = openDatabase("/root/empty.sqlite3");
     db.createTable(std::move(table));
 
-    ASSERT_THAT(
-        exec("sqlite3 /root/empty.sqlite3 .schema | grep TEST"),
-        StartsWith("CREATE TABLE TEST(id INTEGER PRIMARY KEY ,name TEXT);"));
+    ASSERT_THAT(exec("sqlite3 /root/empty.sqlite3 .schema | grep TEST"),
+                StartsWith("CREATE TABLE TEST(id INTEGER PRIMARY KEY ,name TEXT);"));
 }
 
-TEST(Database, insertsRowIntoEmptyColumn)
+class TestObject : public Object
 {
-    class TestObject : public Object
+public:
+    TestObject() = default;
+    TestObject(int i, const std::string& str)
+        : m_i(i)
+        , m_str(str)
+    {}
+
+    std::string content() const override
     {
-    public:
-        std::string content() const override
-        {
-            return std::to_string(m_i) + ", '" + m_str + "'";
-        }
+        return std::to_string(m_i) + ", '" + m_str + "'";
+    }
 
-    private:
-        int m_i{1};
-        std::string m_str{"first"};
-    };
+private:
+    int m_i{1};
+    std::string m_str{"first"};
+};
 
-    auto db = openDatabase("/root/oneEmptyTableDb.sqlite3");
+TEST(Database, insertsRowIntoEmptyTable)
+{
+    auto db = openDatabase("/root/tableWithoutRows.sqlite3");
     auto testObject = TestObject();
     db.insert("test", testObject);
 
-    ASSERT_THAT(exec("sqlite3 /root/oneEmptyTableDb.sqlite3 "
+    ASSERT_THAT(exec("sqlite3 /root/tableWithoutRows.sqlite3 "
                      "'select * from test' | grep 1"),
                 StartsWith("1|first"));
+}
+
+TEST(Database, insertSecondRowIntoTableWithOneRow)
+{
+    auto db = openDatabase("/root/tableWithOneRow.sqlite3");
+    auto testObject = TestObject(2, "second");
+    db.insert("test", testObject);
+
+    ASSERT_THAT(exec("sqlite3 /root/tableWithOneRow.sqlite3 "
+                     "'select * from test' | grep 2"),
+                StartsWith("2|second"));
+}
+
+TEST(Database, insertTwoRowsIntoEmptyTable)
+{
+    auto db = openDatabase("/root/tableForInsertionOfMultipleRows.sqlite3");
+    auto testObject1 = TestObject();
+    db.insert("test", testObject1);
+    auto testObject2 = TestObject(2, "second");
+    db.insert("test", testObject2);
+
+    ASSERT_THAT(exec("sqlite3 /root/tableForInsertionOfMultipleRows.sqlite3 "
+                     "'select * from test' | grep 1"),
+                StartsWith("1|first"));
+    ASSERT_THAT(exec("sqlite3 /root/tableForInsertionOfMultipleRows.sqlite3 "
+                     "'select * from test' | grep 2"),
+                StartsWith("2|second"));
 }
