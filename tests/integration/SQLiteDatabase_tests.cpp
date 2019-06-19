@@ -108,3 +108,21 @@ TEST(Database, insertTwoRowsIntoEmptyTable)
                      "'select * from test' | grep 2"),
                 StartsWith("2|second"));
 }
+
+TEST(Database, throwsOnInsertionOfExistedRow)
+{
+    auto db = openDatabase("/root/tableWithOneRow.sqlite3");
+    auto testObject = TestObject();
+
+    ASSERT_THROW(db.insert("test", testObject), std::runtime_error);
+}
+
+TEST(Database, throwsOnInsertionOfEqualRows)
+{
+    auto db = openDatabase("/root/tableForInsertionOfEqualRows.sqlite3");
+    auto testObject1 = TestObject();
+    db.insert("test", testObject1);
+    auto testObject2 = TestObject(1, "first");
+
+    ASSERT_THROW(db.insert("test", testObject2), std::runtime_error);
+}
